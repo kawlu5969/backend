@@ -12,7 +12,10 @@ ex) Todo 생성 기능
 
 ### 구현 상세
 1. [ ] Job1
+_→ *details*
 2. [ ] Job2
+_→ *details*
 3. [ ] Job3
+_→ *details*
 
 ### 주의 사항
