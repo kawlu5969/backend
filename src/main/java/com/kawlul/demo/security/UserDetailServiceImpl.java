@@ -1,7 +1,7 @@
 package com.kawlul.demo.security;
 
-import com.kawlul.demo.security.entitiy.User;
-import com.kawlul.demo.security.repository.UserRepository;
+import com.kawlul.demo.user_info.entity.User;
+import com.kawlul.demo.user_info.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,6 @@
 package com.kawlul.demo.security;
 
-import com.kawlul.demo.security.entitiy.User;
+import com.kawlul.demo.user_info.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

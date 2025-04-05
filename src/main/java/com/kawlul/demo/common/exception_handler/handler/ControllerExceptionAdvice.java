@@ -2,6 +2,8 @@ package com.kawlul.demo.common.exception_handler.handler;
 
 import com.kawlul.demo.common.dto.ErrorResponse;
 import com.kawlul.demo.common.exception_handler.custom.SecurityRestApiException;
+import com.kawlul.demo.user_info.Exception.UserErrorType;
+import com.kawlul.demo.user_info.Exception.UserRestApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 
@@ -33,6 +35,31 @@ public class ControllerExceptionAdvice {
                 .build();
 
         return ResponseEntity.status(errorCode).body(errorResponse);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(UserRestApiException userRestApiException){
+        log.error(userRestApiException.getMessage());
+
+        UserErrorType userErrorType = userRestApiException.getUserErrorType();
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .code(userErrorType.getCode())
+                .message(userErrorType.getDetails())
+                .build();
+
+        return ResponseEntity.status(userErrorType.getCode()).body(errorResponse);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(Exception exception){
+        log.error(exception.getMessage());
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .code(400)
+                .message("Unknown Dispatcher Exception")
+                .build();
+
+        return ResponseEntity.status(400).body(errorResponse);
     }
 
 }

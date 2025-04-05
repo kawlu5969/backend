@@ -1,6 +1,7 @@
 package com.kawlul.demo.security.jwt;
 
-import com.kawlul.demo.security.entitiy.User;
+import com.kawlul.demo.user_info.dto.user.AuthUserInfo;
+import com.kawlul.demo.user_info.entity.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -40,8 +41,8 @@ public class JwtServiceImpl implements JwtService{
     }
 
     @Override
-    public String generateToken(User user) {
-        return generateToken(new HashMap<>(),user);
+    public String generateToken(AuthUserInfo authUserInfo) {
+        return generateToken(new HashMap<>(),authUserInfo);
     }
 
     @Override
@@ -66,12 +67,11 @@ public class JwtServiceImpl implements JwtService{
         final Claims claims = extractAllClaims(token);
         return claimsResolvers.apply(claims);
     }
-    private String generateToken(Map<String, String> extraClaims, User user){
-        extraClaims.put("email",user.getEmail());
-        extraClaims.put("name",user.getName());
+    private String generateToken(Map<String, String> extraClaims, AuthUserInfo authUserInfo){
+        extraClaims.put("email",authUserInfo.getEmail());
         return Jwts.builder()
                 .setClaims(extraClaims)
-                .setSubject(user.getEmail())
+                .setSubject(authUserInfo.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis()+TOKEN_TIME))
                 .signWith(key, signatureAlgorithm)
